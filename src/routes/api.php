@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\V1\CommentController;
+use App\Http\Controllers\V1\PostController;
 use App\Http\Controllers\V1\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,5 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::resource('profile', ProfileController::class);
+    Route::resources([
+        'profile' => ProfileController::class,
+        'post' => PostController::class,
+        'comment' => CommentController::class
+    ]);
 });
