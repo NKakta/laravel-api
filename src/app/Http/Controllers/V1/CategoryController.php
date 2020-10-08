@@ -6,17 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CommentController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index($id, $noteId, $categoryId)
     {
+        if ($categoryId == 4)
+        {
+            return response()->json([
+                'message' =>
+                    'not found'
+            ], 404);
+        }
         return response()->json([
-            'data' => 'ok index'
+            'data' =>
+            [
+                'profileId' => $id,
+                'noteId' => $noteId,
+                'categoryId' => $categoryId
+            ]
         ], 200);
     }
 
@@ -51,10 +63,16 @@ class CommentController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function show($id)
+    public function show($id, $noteId, $categoryId)
     {
+        if ($categoryId == 4)
+        {
+            return response()->json([
+                'message' => 'not found'
+            ], 404);
+        }
         return response()->json([
-            'data' => 'ok show'
+            'category' => 'text'
         ], 200);
     }
 
@@ -64,10 +82,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function edit($id)
+    public function edit($id, $noteId, $categoryId)
     {
+        if ($categoryId == 4)
+        {
+            return response()->json([], 404);
+        }
         return response()->json([
-            'data' => 'ok edit'
+            'message' => 'ok'
         ], 200);
     }
 
@@ -78,11 +100,15 @@ class CommentController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update($id, $noteId, $categoryId)
     {
+        if ($categoryId == 4)
+        {
+            return response()->json([], 404);
+        }
         return response()->json([
-            'data' => 'ok update'
-        ], 200);
+            'message' => 'new id'
+        ], 201);
     }
 
     /**
@@ -91,10 +117,14 @@ class CommentController extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy($id, $noteId, $categoryId)
     {
+        if ($categoryId == 4)
+        {
+            return response()->json([], 404);
+        }
         return response()->json([
-            'data' => 'ok destroy'
-        ], 200);
+            'message' => 'deleted'
+        ], 204);
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PostController extends Controller
+class NoteController extends Controller
 {
     /**
      * Display a listing of the resource.
