@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Profile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -16,86 +18,59 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $profiles = Profile ::fetchAllByUserId(Auth::id());
+
         return response()->json([
-            'data' => 'ok index'
+            'data' => $profiles
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return response()->json([
-            'data' => 'ok create'
-        ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'address' => 'required',
+            'nickname' => 'required',
+        ]);
+
+        /** @var Profile $profile */
+        $profile = Profile ::create($request->all());
+        $profile->user_id = Auth::id();
+        $profile->save();
+
         return response()->json([
-            'data' => 'ok post'
+            'data' => $profile
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
      */
-    public function show($id)
+    public function show(Profile $profile)
     {
         return response()->json([
-            'data' => 'ok show'
+            'data' => $profile
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function update(Request $request, Profile $profile)
     {
+        $request->validate([
+            'address' => 'required',
+            'nickname' => 'required',
+        ]);
+
+        $profile->update($request->all());
+
         return response()->json([
-            'data' => 'ok edit'
+            'data' => $profile
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(Profile $profile)
     {
-        return response()->json([
-            'data' => 'ok update'
-        ], 200);
-    }
+        $profile->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        return response()->json([
-            'data' => 'ok destroy'
-        ], 200);
+        return response()->json([],204);
     }
 }

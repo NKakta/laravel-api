@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Note;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class NoteController extends Controller
 {
@@ -16,86 +18,59 @@ class NoteController extends Controller
      */
     public function index()
     {
+        $notes = Note::fetchAllByUserId(Auth::id());
+
         return response()->json([
-            'data' => 'ok index'
+            'data' => $notes
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return JsonResponse
-     */
-    public function create()
-    {
-        return response()->json([
-            'data' => 'ok create'
-        ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        /** @var Note $note */
+        $note = Note::create($request->all());
+        $note->user_id = Auth::id();
+        $note->save();
+
         return response()->json([
-            'data' => 'ok post'
+            'data' => $note
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Note $note)
     {
         return response()->json([
-            'data' => 'ok show'
+            'data' => $note
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function edit($id)
+    public function update(Request $request, Note $note)
     {
+        $this->validate($request, [
+            'title'     => 'required',
+            'content'   => 'required'
+        ]);
+
+        $note->update($request->all());
+
         return response()->json([
-            'data' => 'ok edit'
+            'data' => $note
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function update(Request $request, $id)
+    public function destroy(Note $note)
     {
-        return response()->json([
-            'data' => 'ok update'
-        ], 200);
-    }
+        $note->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function destroy($id)
-    {
-        return response()->json([
-            'data' => 'ok destroy'
-        ], 200);
+        return response()->json([],204);
     }
 }

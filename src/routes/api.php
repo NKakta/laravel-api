@@ -22,13 +22,12 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::group(['prefix' => 'v1'], function () {
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
     Route::resources([
         'profile' => ProfileController::class,
+        'note' => NoteController::class,
         'category' => CategoryController::class
     ]);
-
-    Route::post('note/create', [NoteController::class, 'create'])->middleware('auth:api');
 
     Route::get('profile/{id}/note/{noteId}/categories/{categoryId}', [CategoryController::class, 'index']);
     Route::delete('profile/{id}/note/{noteId}/categories/{categoryId}', [CategoryController::class, 'destroy']);

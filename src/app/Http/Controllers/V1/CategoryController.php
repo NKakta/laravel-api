@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -13,118 +15,59 @@ class CategoryController extends Controller
      *
      * @return JsonResponse
      */
-    public function index($id, $noteId, $categoryId)
+    public function index()
     {
-        if ($categoryId == 4)
-        {
-            return response()->json([
-                'message' =>
-                    'not found'
-            ], 404);
-        }
+        $categorys = Category ::fetchAllByUserId(Auth::id());
+
         return response()->json([
-            'data' =>
-            [
-                'profileId' => $id,
-                'noteId' => $noteId,
-                'categoryId' => $categoryId
-            ]
+            'data' => $categorys
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return JsonResponse
-     */
-    public function create()
-    {
-        return response()->json([
-            'data' => 'ok create'
-        ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+        ]);
+
+        /** @var Category $category */
+        $category = Category ::create($request->all());
+        $category->user_id = Auth::id();
+        $category->save();
+
         return response()->json([
-            'data' => 'ok post'
+            'data' => $category
         ], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return JsonResponse
      */
-    public function show($id, $noteId, $categoryId)
+    public function show(Category $category)
     {
-        if ($categoryId == 4)
-        {
-            return response()->json([
-                'message' => 'not found'
-            ], 404);
-        }
         return response()->json([
-            'category' => 'text'
+            'data' => $category
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function edit($id, $noteId, $categoryId)
+    public function update(Request $request, Category $category)
     {
-        if ($categoryId == 4)
-        {
-            return response()->json([], 404);
-        }
+        $this->validate($request, [
+            'title'     => 'required',
+        ]);
+
+        $category->update($request->all());
+
         return response()->json([
-            'message' => 'ok'
+            'data' => $category
         ], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function update($id, $noteId, $categoryId)
+    public function destroy(Category $category)
     {
-        if ($categoryId == 4)
-        {
-            return response()->json([], 404);
-        }
-        return response()->json([
-            'message' => 'new id'
-        ], 201);
-    }
+        $category->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return JsonResponse
-     */
-    public function destroy($id, $noteId, $categoryId)
-    {
-        if ($categoryId == 4)
-        {
-            return response()->json([], 404);
-        }
-        return response()->json([
-            'message' => 'deleted'
-        ], 204);
+        return response()->json([],204);
     }
 }
