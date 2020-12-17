@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Note extends Model
+class Game extends Model
 {
     use HasFactory;
 
@@ -35,6 +35,6 @@ class Note extends Model
         return self::query()
             ->where('user_id', $userId)
             ->get()
-        ;
+            ;
     }
 }

@@ -27,6 +27,15 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
+        if (!$user->isAdmin())
+        {
+            return response()->json([
+                'data' => []
+            ], 401);
+        }
+
         $request->validate([
             'address' => 'required',
             'nickname' => 'required',

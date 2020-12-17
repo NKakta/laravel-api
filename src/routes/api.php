@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\GameController;
 use App\Http\Controllers\V1\LoginController;
-use App\Http\Controllers\V1\NoteController;
 use App\Http\Controllers\V1\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
-//});
+//});'middleware' => 'auth:api'
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'v1'], function () {
     Route::resources([
         'profile' => ProfileController::class,
-        'note' => NoteController::class,
+        'game' => GameController::class,
         'category' => CategoryController::class
     ]);
 
