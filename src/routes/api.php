@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function () {
+Route::group(['prefix' => 'v1'], function () {
     Route::resources([
         'profile' => ProfileController::class,
         'note' => NoteController::class,
