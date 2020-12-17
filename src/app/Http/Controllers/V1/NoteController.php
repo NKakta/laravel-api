@@ -18,11 +18,13 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::fetchAllByUserId(Auth::id());
+        $notes = Note::all();
 
-        return response()->json([
-            'data' => $notes
-        ], 200);
+        return response()->view(
+            'index',
+            ['notes' => $notes],
+            200
+        );
     }
 
     public function store(Request $request)
