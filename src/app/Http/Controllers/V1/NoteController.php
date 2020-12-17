@@ -21,7 +21,7 @@ class NoteController extends Controller
         $notes = Note::all();
 
         return response()->view(
-            'index',
+            'notes',
             ['notes' => $notes],
             200
         );
