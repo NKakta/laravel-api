@@ -14,15 +14,16 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
      */
     public function index()
     {
-        $profiles = Profile ::fetchAllByUserId(Auth::id());
+        $profiles = Profile ::all();
 
-        return response()->json([
-            'data' => $profiles
-        ], 200);
+        return response()->view(
+            'profiles',
+            ['profiles' => $profiles],
+            200
+        );
     }
 
     public function store(Request $request)

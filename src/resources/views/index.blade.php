@@ -30,7 +30,10 @@
         <img class="masthead-avatar mb-5" src="https://media.giphy.com/media/NaxKt9aSzAspO/giphy.gif" alt="" />
         <!-- Masthead Heading-->
         <button type="button" onclick="loadDoc()">
-            <h1 class="masthead-heading text-uppercase mb-0">Don't click</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">Load notes</h1>
+        </button>
+        <button type="button" onclick="loadProfiles()">
+            <h1 class="masthead-heading text-uppercase mb-0">Load profiles</h1>
         </button>
     </div>
 </header>
@@ -335,6 +338,32 @@
             }
         };
         xhttp.open("GET", "http://localhost:8080/api/v1/note", true);
+        xhttp.send();
+    }
+
+    function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            console.log(this.responseText);
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("taget-pract").innerHTML = this.responseText;
+                document.getElementById("name-change-lol").innerHTML = 'Notes';
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/api/v1/note", true);
+        xhttp.send();
+    }
+
+    function loadProfiles() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            console.log(this.responseText);
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("taget-pract").innerHTML = this.responseText;
+                document.getElementById("name-change-lol").innerHTML = 'Profiles';
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/api/v1/profile", true);
         xhttp.send();
     }
 </script>
