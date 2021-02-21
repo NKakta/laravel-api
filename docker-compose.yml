@@ -10,7 +10,7 @@ services:
       dockerfile: nginx.dockerfile
     container_name: nginx-lab
     ports:
-      - "8080:80"
+      - "800:80"
     volumes:
       - ./src:/var/www/html:delegated
     depends_on:
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - "33066:3306"
     environment:
       MYSQL_DATABASE: homestead
       MYSQL_USER: homestead
