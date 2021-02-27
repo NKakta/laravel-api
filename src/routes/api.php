@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\V1\CategoryController;
 use App\Http\Controllers\V1\GameController;
 use App\Http\Controllers\V1\LoginController;
-use App\Http\Controllers\V1\ProfileController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\V1\GameStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,19 +20,18 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});'middleware' => 'auth:api'
 
-Route::group(['prefix' => 'v1'], function () {
-    Route::resources([
-        'profile' => ProfileController::class,
-        'game' => GameController::class,
-        'category' => CategoryController::class
-    ]);
+Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
+    Route::get('games/search', [GameController::class, 'search']);
+    Route::get('game/{id}', [GameController::class, 'show']);
 
-    Route::get('profile/{id}/note/{noteId}/categories/{categoryId}', [CategoryController::class, 'index']);
-    Route::delete('profile/{id}/note/{noteId}/categories/{categoryId}', [CategoryController::class, 'destroy']);
-    Route::post('profile/{id}/note/{noteId}/categories/{categoryId}', [CategoryController::class, 'update']);
-
+    Route::post('game/{gameId}/status', [GameStatusController::class, 'update']);
 });
 
 Route::group(['prefix' => '/user'], function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
+});
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact nedas'], 404);
 });

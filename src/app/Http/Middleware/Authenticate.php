@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     {
         $request->headers->add(['Accept' => 'application/json']);
 
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             return route('login');
         }
     }

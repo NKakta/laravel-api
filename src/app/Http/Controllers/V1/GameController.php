@@ -2,87 +2,37 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
-use App\Models\Game ;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\SearchGameRequest;
+use App\Services\Game\GameService;
+use App\Services\GameStatus\GameStatusService;
+use Illuminate\Support\Collection;
+use MarcReichel\IGDBLaravel\Models\Game;
+use Symfony\Component\HttpFoundation\Request;
+use App\Http\Controllers\ApiController;
 
-class GameController extends Controller
+class GameController extends ApiController
 {
     /**
-     * Display a listing of the resource.
-     *
+     * @var GameService
      */
-    public function index()
-    {
-        $games = Game::all();
+    private $gameService;
 
-        return response()->view(
-            'games',
-            ['games' => $games],
-            200
-        );
-//        return response()->json([
-//            'data' => $games
-//        ], 200);
+    public function __construct(GameService $gameService)
+    {
+        $this->gameService = $gameService;
     }
 
-    public function store(Request $request)
+    public function search(SearchGameRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
+        $game = $this->gameService->fetchByName($request->name);
 
-        /** @var Game $game */
-        $game = Game::create($request->all());
-        $game->user_id = Auth::id();
-        $game->save();
-
-        return response()->json([
-            'data' => $game
-        ], 200);
+        return $this->successResponse($game);
     }
 
-    /**
-     * Display the specified resource.
-     * @param Game $game
-     * @return JsonResponse
-     */
-    public function show(Game $game)
+    public function show(string $id)
     {
-        return response()->json([
-            'data' => $game
-        ], 200);
-    }
+        $game = $this->gameService->fetchById($id);
 
-    public function update(Request $request, Game $game)
-    {
-        $this->validate($request, [
-            'title'     => 'required',
-            'content'   => 'required'
-        ]);
-
-        $game->update($request->all());
-
-        return response()->json([
-            'data' => $game
-        ], 200);
-    }
-
-    public function destroy(Game $game)
-    {
-        $game->delete();
-
-        return response()->json([],204);
-    }
-
-    public function displayFrontend(Game $game)
-    {
-
-        $game->delete();
-
-        return response()->json([],204);
+        return $this->successResponse($game);
     }
 }
