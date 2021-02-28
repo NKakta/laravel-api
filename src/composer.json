@@ -15,7 +15,8 @@
         "laravel/framework": "^8.0",
         "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
-        "marcreichel/igdb-laravel": "^2.1"
+        "marcreichel/igdb-laravel": "^2.1",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.9",
@@ -59,6 +60,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "ide-helper": [
+            "docker-compose exec -ti member-area-sso-php \"php artisan ide-helper:generate\"",
+            "docker-compose exec -ti member-area-sso-php \"php artisan ide-helper:models\"",
+            "docker-compose exec -ti member-area-sso-php \"php artisan ide-helper:meta\""
         ]
     }
 }

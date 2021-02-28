@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilesTable extends Migration
+class CreateGameListsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('game_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('address');
-            $table->string('nickname');
-            $table->integer('user_id')->nullable();
+            $table->uuid('uuid')->index();
+            $table->uuid('user_id');
+            $table->string('name');
+            $table->text('description');
+            $table->integer('count')->default(0);
+            $table->json('cover_urls')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +32,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('game_lists');
     }
 }

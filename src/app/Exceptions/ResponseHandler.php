@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Error;
 use Exception;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Throwable;
 
 final class ResponseHandler
@@ -17,15 +18,25 @@ final class ResponseHandler
      */
     public static function response($content = null, int $status = null, array $headers = []): ApiResponse
     {
-        if ($content instanceof Exception) {
-            $responseContent = self::getContentFromException($content);
-        } elseif ($content instanceof Error) {
-            $responseContent = self::getContentFromError($content);
-        } elseif ($content instanceof Response) {
-            $responseContent = self::getContentFromResponse($content);
-        } else {
-            $responseContent = new ResponseContent($content, $status);
+        switch (true)
+        {
+            case $content instanceof ModelNotFoundException:
+                $responseContent = new ResponseContent(['message' => 'Not found.'], 404);
+                break;
+            case $content instanceof Exception:
+                $responseContent = self::getContentFromException($content);
+                break;
+            case $content instanceof Error:
+                $responseContent = self::getContentFromError($content);
+                break;
+            case $content instanceof Response:
+                $responseContent = self::getContentFromResponse($content);
+                break;
+            default:
+                $responseContent = new ResponseContent($content, $status);
+                break;
         }
+
         return new ApiResponse($responseContent, $headers);
     }
 

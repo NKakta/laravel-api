@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Contracts\UuidInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class GameStatus extends Model
+class GameStatus extends Model implements UuidInterface
 {
     const STATUS_PLAYED = 'played';
     const STATUS_WANT = 'want';

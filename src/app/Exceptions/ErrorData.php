@@ -107,7 +107,9 @@ class ErrorData implements Arrayable
 
     protected function parseFromException(Exception $exception): void
     {
-        $this->setCode($exception->getCode());
+        $code = is_int($exception->getCode()) ?? 500;
+
+        $this->setCode($code);
         $this->setMessage($exception->getMessage());
 
         if (env('APP_DEBUG', false)) {

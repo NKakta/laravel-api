@@ -15,8 +15,9 @@ class CreateGameStatusesTable extends Migration
     {
         Schema::create('game_statuses', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->bigInteger('game_id');
-            $table->integer('user_id');
+            $table->uuid('user_id');
             $table->string('status');
             $table->timestamps();
         });

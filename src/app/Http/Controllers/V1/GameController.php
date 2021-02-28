@@ -4,10 +4,6 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Requests\SearchGameRequest;
 use App\Services\Game\GameService;
-use App\Services\GameStatus\GameStatusService;
-use Illuminate\Support\Collection;
-use MarcReichel\IGDBLaravel\Models\Game;
-use Symfony\Component\HttpFoundation\Request;
 use App\Http\Controllers\ApiController;
 
 class GameController extends ApiController

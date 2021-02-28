@@ -20,11 +20,11 @@ class GameService
 
     public function fetchById(int $id): Game
     {
-        $game = Game::select([Game::PARSED_FIELDS])
+        $game = Game::select(Game::PARSED_FIELDS)
             ->with(['cover' => ['height', 'url', 'width']])
             ->find($id);
 
-        $game->game_status = $this->gameStatusService->getStatusByGameId($game->id);
+        $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
 
         return $game;
     }
