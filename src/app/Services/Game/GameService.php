@@ -34,7 +34,7 @@ class GameService
      */
     public function fetchByName(string $name): Collection
     {
-        return Game::select([Game::PARSED_FIELDS])
+        return Game::select(Game::PARSED_FIELDS)
             ->with(['cover' => ['height', 'url', 'width']])
             ->search($name)
             ->get();
