@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
-class LoginController extends Controller
+class LoginController extends ApiController
 {
     public function login(Request $request)
     {
@@ -17,13 +16,13 @@ class LoginController extends Controller
         ]);
 
         if (!Auth::attempt($login)) {
-            return response(['message' => 'Invalid credentials'], 401);
+            $this->errorResponse('Auth failed', 401);
         }
 
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
 
-        return response([
-            'user' => Auth::user(),
+        return $this->successResponse([
+            'user' => Auth::user()->toArray(),
             'accessToken' => $accessToken
         ]);
     }

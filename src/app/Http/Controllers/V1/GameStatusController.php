@@ -32,21 +32,22 @@ class GameStatusController extends ApiController
     {
         $status = GameStatus::where([
                 'game_id' => $gameId,
-                'user_id' => Auth::id(),
+                'user_id' => Auth::user()->uuid,
         ])
         ->first();
 
-        if ($status instanceof GameStatus) {
-            if ($status->status === $request->status) {
-                throw new \Exception('Status can\'t be the same', 400);
-            }
-        } else {
+        if (!$status instanceof GameStatus) {
             $status = GameStatus::create([
                 'game_id' => $gameId,
                 'status' => $request->status
             ]);
         }
 
+        if ($status->status === $request->status) {
+            throw new \Exception('Status can\'t be the same', 400);
+        }
+
+        $status->status = $request->status;
         $status->updateTimestamps();
         $status->save();
 
