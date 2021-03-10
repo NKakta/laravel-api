@@ -40,7 +40,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        error_reporting(E_ERROR | E_PARSE);
         return ResponseHandler::response($exception);
     }
 

@@ -17,7 +17,7 @@ class ApiController extends Controller
     protected function errorResponse($message = null, $code = 400)
     {
         return response()->json([
-            'status'=>'Error',
+            'status' => 'Error',
             'message' => $message,
             'data' => null
         ], $code);

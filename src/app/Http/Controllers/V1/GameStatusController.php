@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\GameStatus;
 use App\Services\Activity\ActivityService;
 use App\Services\Game\GameService;
+use Illuminate\Http\JsonResponse;
 use \Illuminate\Support\Facades\Auth;
 
 class GameStatusController extends ApiController
@@ -29,7 +30,7 @@ class GameStatusController extends ApiController
         $this->gameService = $gameService;
     }
 
-    public function update(CreateGameStatusRequest $request, int $gameId)
+    public function update(CreateGameStatusRequest $request, int $gameId): JsonResponse
     {
         $status = GameStatus::where([
             'game_id' => $gameId,
