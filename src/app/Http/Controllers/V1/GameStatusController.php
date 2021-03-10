@@ -31,7 +31,6 @@ class GameStatusController extends ApiController
 
     public function update(CreateGameStatusRequest $request, int $gameId)
     {
-        return response()->json(['message' => 'niekas']);
         $status = GameStatus::where([
             'game_id' => $gameId,
             'user_id' => Auth::user()->uuid,
