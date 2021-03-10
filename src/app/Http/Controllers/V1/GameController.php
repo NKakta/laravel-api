@@ -26,7 +26,7 @@ class GameController extends ApiController
         return $this->successResponse($game);
     }
 
-    public function show(string $id)
+    public function show(int $id)
     {
         $game = $this->gameService->fetchById($id);
 
