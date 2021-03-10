@@ -44,7 +44,7 @@ class GameStatusController extends ApiController
         }
 
         if ($status->status === $request->status) {
-            throw new \Exception('Status can\'t be the same', 400);
+            return $this->errorResponse('Status can\'t be the same', 400);
         }
 
         $status->status = $request->status;
