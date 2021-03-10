@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\V1;
 
@@ -31,10 +32,10 @@ class GameStatusController extends ApiController
     public function update(CreateGameStatusRequest $request, int $gameId)
     {
         $status = GameStatus::where([
-                'game_id' => $gameId,
-                'user_id' => Auth::user()->uuid,
+            'game_id' => $gameId,
+            'user_id' => Auth::user()->uuid,
         ])
-        ->first();
+            ->first();
 
         if (!$status instanceof GameStatus) {
             $status = GameStatus::create([
@@ -44,7 +45,7 @@ class GameStatusController extends ApiController
         }
 
         if ($status->status === $request->status) {
-            return $this->errorResponse('Status can\'t be the same', 400);
+            return $this->errorResponse('Status cant be the same', 400);
         }
 
         $status->status = $request->status;
