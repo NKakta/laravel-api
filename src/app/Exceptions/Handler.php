@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Exceptions;
 
@@ -39,6 +40,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        error_reporting(E_ERROR | E_PARSE);
         return ResponseHandler::response($exception);
     }
 
@@ -49,17 +51,17 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (AuthenticationException $e, $request) {
-                return response()->json(['message' => 'unauthenticated'], 401);
-        });
-
-
-        $this->reportable(function (ValidationException $e, $request) {
-                return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 400);
-        });
-
-        $this->renderable(function (Throwable $e, $request) {
-                return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 404);
-        });
+//        $this->reportable(function (AuthenticationException $e, $request) {
+//                return response()->json(['message' => 'unauthenticated'], 401);
+//        });
+//
+//
+//        $this->reportable(function (ValidationException $e, $request) {
+//                return response()->json(['message' => 'Validation failed', 'errors' => $e->errors()], 400);
+//        });
+//
+//        $this->renderable(function (Throwable $e, $request) {
+//                return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 404);
+//        });
     }
 }
