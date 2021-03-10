@@ -41,15 +41,15 @@ class GameStatusController extends ApiController
         if (!$status instanceof GameStatus) {
             $status = GameStatus::create([
                 'game_id' => $gameId,
-                'status' => $request->status
+                'status' => $request->input('status')
             ]);
         }
 
-        if ($status->status === $request->status) {
+        if ($status->status === $request->input('status')) {
             return $this->errorResponse('Status cant be the same', 400);
         }
 
-        $status->status = $request->status;
+        $status->status = $request->input('status');
         $status->updateTimestamps();
         $status->save();
 
