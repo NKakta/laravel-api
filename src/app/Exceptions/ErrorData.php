@@ -4,9 +4,9 @@ namespace App\Exceptions;
 
 use Error;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Validation\ValidationException as IlluminateValidationException;
 use Throwable;
 
 class ErrorData implements Arrayable
@@ -19,7 +19,6 @@ class ErrorData implements Arrayable
 
     private const DISPLAYED_EXCEPTIONS = [
         ValidationException::class,
-        IlluminateValidationException::class,
         AuthenticationException::class,
     ];
 

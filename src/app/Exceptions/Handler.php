@@ -44,7 +44,8 @@ class Handler extends ExceptionHandler
         Log::error('Exception received', [
             'trace' => $exception->getTrace(),
             'message' => $exception->getMessage(),
-            'line' => $exception->getLine()
+            'line' => $exception->getLine(),
+            'file' => $exception->getFile(),
         ]);
         return ResponseHandler::response($exception);
     }
