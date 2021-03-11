@@ -50,9 +50,8 @@ $kernel = $app->make(Kernel::class);
 
 //header('Access-Control-Allow-Origin: *');
 //header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
-header('Content-Type: application/json');
 
-
+dd(Request::capture());
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
