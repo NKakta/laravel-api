@@ -39,16 +39,16 @@ class Handler extends ExceptionHandler
      * @param Throwable $exception
      * @return Response
      */
-//    public function render($request, Throwable $exception)
-//    {
-//        Log::error('Exception received', [
-//            'trace' => $exception->getTrace(),
-//            'message' => $exception->getMessage(),
-//            'line' => $exception->getLine(),
-//            'file' => $exception->getFile(),
-//        ]);
-//        return ResponseHandler::response($exception);
-//    }
+    public function render($request, Throwable $exception)
+    {
+        Log::error('Exception received', [
+            'trace' => $exception->getTrace(),
+            'message' => $exception->getMessage(),
+            'line' => $exception->getLine(),
+            'file' => $exception->getFile(),
+        ]);
+        return ResponseHandler::response($exception);
+    }
 
     /**
      * Register the exception handling callbacks for the application.
