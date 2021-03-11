@@ -30,7 +30,7 @@ class GameStatusController extends ApiController
 //        $this->gameService = $gameService;
 //    }
 
-    public function update(Request $request, int $gameId): JsonResponse
+    public function update(Request $request, int $gameId)
     {
         return 'ok';
 //        $status = GameStatus::where([
