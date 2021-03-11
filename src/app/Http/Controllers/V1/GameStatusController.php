@@ -38,7 +38,7 @@ class GameStatusController extends ApiController
             'user_id' => Auth::user()->uuid,
         ])
         ->first();
-dd(response()->json());
+dd(readfile("php://input"));
         if (!$status instanceof GameStatus) {
             $status = GameStatus::create([
                 'game_id' => $gameId,
