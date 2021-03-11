@@ -41,7 +41,7 @@ class Model extends EloquentModel
             ->first();
         }
 
-        parent::resolveRouteBinding($value, $field);
+        return parent::resolveRouteBinding($value, $field);
     }
 
     public function getRouteKeyName()

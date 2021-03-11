@@ -36,7 +36,7 @@ class GameStatusController extends ApiController
             'game_id' => $gameId,
             'user_id' => Auth::user()->uuid,
         ])
-            ->first();
+        ->first();
 
         if (!$status instanceof GameStatus) {
             $status = GameStatus::create([

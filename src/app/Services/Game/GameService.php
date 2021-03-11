@@ -21,9 +21,10 @@ class GameService
     public function fetchById(int $id): Game
     {
         $game = Game::select(Game::PARSED_FIELDS)
-            ->with(['cover' => ['height', 'url', 'width']])
+            ->with(Game::RELATION_FIELDS)
             ->find($id);
 
+        $this->resizeImages($game);
         $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
 
         return $game;
@@ -34,9 +35,33 @@ class GameService
      */
     public function fetchByName(string $name): Collection
     {
-        return Game::select(Game::PARSED_FIELDS)
-            ->with(['cover' => ['height', 'url', 'width']])
+        $list = Game::select(Game::PARSED_FIELDS)
+            ->with(Game::RELATION_FIELDS)
             ->search($name)
             ->get();
+
+        foreach ($list as $game) {
+            $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
+
+        }
+
+        return $list;
+    }
+
+    private function resizeImages($game)
+    {
+        if (!$game) {
+            return;
+        }
+
+        if ($game->cover) {
+            $game->cover->url = str_replace('t_thumb', Game::IMAGE_SIZE_BIG, $game->cover->url);
+        }
+
+        if ($game->screenshots) {
+            foreach ($game->screenshots as $screenshot) {
+                $screenshot->url = str_replace('t_thumb', Game::IMAGE_SIZE_BIG, $screenshot->url);
+            }
+        }
     }
 }
