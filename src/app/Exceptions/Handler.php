@@ -42,10 +42,10 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         Log::error('Exception received', [
-            'trace' => $exception->getTrace(),
             'message' => $exception->getMessage(),
             'line' => $exception->getLine(),
             'file' => $exception->getFile(),
+            'trace' => $exception->getTrace(),
         ]);
         return ResponseHandler::response($exception);
     }

@@ -27,7 +27,6 @@ class GameStatusController extends ApiController
 
     public function __construct(ActivityService $activityService, GameService $gameService)
     {
-        dd(json_encode(debug_backtrace()));
         $this->activityService = $activityService;
         $this->gameService = $gameService;
     }
