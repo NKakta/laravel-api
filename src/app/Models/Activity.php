@@ -13,7 +13,7 @@ class Activity extends Model implements UuidInterface
     const ACTION_LIST_CREATED = 'list_created';
     const ACTION_STATUS_UPDATED = 'game_status_updated';
 
-    protected $fillable = ['game_id', 'game_name', 'action', 'data'];
+    protected $fillable = ['game_id', 'game_name', 'action', 'data', 'cover_url'];
 
     protected $casts = ['data' => 'array'];
 

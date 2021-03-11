@@ -33,4 +33,12 @@ class Game extends IgdbGame
     ];
 
     public const IMAGE_SIZE_BIG = 't_cover_big_2x';
+
+    public function getCoverUrl()
+    {
+        if ($this->cover->url) {
+            return $this->cover->url = str_replace('t_thumb', Game::IMAGE_SIZE_BIG, $this->cover->url);
+        }
+        return null;
+    }
 }

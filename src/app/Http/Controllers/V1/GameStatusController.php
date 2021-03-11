@@ -53,13 +53,15 @@ class GameStatusController extends ApiController
         $status->updateTimestamps();
         $status->save();
 
+        $game = $this->gameService->fetchById($gameId);
+
         $this->activityService->create(
             Activity::ACTION_STATUS_UPDATED,
             [
-                'game_name' => $this->gameService->fetchById($gameId)->name,
+                'game_name' => $game->name,
                 'status' => $status->status
             ],
-            $gameId
+            $game
         );
 
         return $this->successResponse($status);

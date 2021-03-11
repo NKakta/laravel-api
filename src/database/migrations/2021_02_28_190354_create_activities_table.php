@@ -19,6 +19,7 @@ class CreateActivitiesTable extends Migration
             $table->uuid('user_id');
             $table->bigInteger('game_id')->nullable();
             $table->string('action');
+            $table->string('cover_url')->nullable();
             $table->json('data')->nullable();
             $table->timestamps();
         });
