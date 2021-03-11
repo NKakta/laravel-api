@@ -27,6 +27,7 @@ class GameStatusController extends ApiController
 
     public function __construct(ActivityService $activityService, GameService $gameService)
     {
+        dd('atejo');
         $this->activityService = $activityService;
         $this->gameService = $gameService;
     }
