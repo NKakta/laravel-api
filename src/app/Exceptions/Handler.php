@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
             'message' => $exception->getMessage(),
             'line' => $exception->getLine(),
             'file' => $exception->getFile(),
-            'trace' => $exception->getTrace(),
+            'trace' => $exception->getTrace()[0],
         ]);
         return ResponseHandler::response($exception);
     }
