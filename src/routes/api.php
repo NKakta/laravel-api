@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::get('games/search', [GameController::class, 'search']);
     Route::get('game/{id}', [GameController::class, 'show']);
 
-    Route::post('game/{gameId}/status', [StatusController::class, 'update']);
+    Route::post('game/{gameId}/status',function(Request $request) { return 'debug';});
 
     Route::post('lists/{list}/items', [ListItemController::class, 'create']);
     Route::post('lists/{list}/items/{item}', [ListItemController::class, 'destroy']);
