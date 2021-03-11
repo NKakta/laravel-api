@@ -45,10 +45,10 @@ class GameStatusController extends ApiController
                 'status' => $request->get('status')
             ]);
         }
-
-        if ($status->status === $request->get('status')) {
-            return $this->errorResponse('Status cant be the same', 400);
-        }
+//
+//        if ($status->status === $request->get('status')) {
+//            return $this->errorResponse('Status cant be the same', 400);
+//        }
 
         $status->status = $request->get('status');
         $status->updateTimestamps();
