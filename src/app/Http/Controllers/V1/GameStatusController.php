@@ -14,54 +14,54 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GameStatusController extends ApiController
 {
-//    /**
-//     * @var ActivityService
-//     */
-//    private $activityService;
-//
-//    /**
-//     * @var GameService
-//     */
-//    private $gameService;
-//
-//    public function __construct(ActivityService $activityService, GameService $gameService)
-//    {
-//        $this->activityService = $activityService;
-//        $this->gameService = $gameService;
-//    }
+    /**
+     * @var ActivityService
+     */
+    private $activityService;
 
-    public function update(Request $request, int $gameId)
+    /**
+     * @var GameService
+     */
+    private $gameService;
+
+    public function __construct(ActivityService $activityService, GameService $gameService)
     {
-        return 'ok';
-//        $status = GameStatus::where([
-//            'game_id' => $gameId,
-//            'user_id' => Auth::user()->uuid,
-//        ])
-//        ->first();
-//        if (!$status instanceof GameStatus) {
-//            $status = GameStatus::create([
-//                'game_id' => $gameId,
-//                'status' => $request->get('status')
-//            ]);
-//        }
-//
-//        if ($status->status === $request->get('status')) {
-//            return $this->errorResponse('Status cant be the same', 400);
-//        }
+        $this->activityService = $activityService;
+        $this->gameService = $gameService;
+    }
 
-//        $status->status = $request->get('status');
-//        $status->updateTimestamps();
-//        $status->save();
-//
-//        $this->activityService->create(
-//            Activity::ACTION_STATUS_UPDATED,
-//            [
-//                'game_name' => $this->gameService->fetchById($gameId)->name,
-//                'status' => $status->status
-//            ],
-//            $gameId
-//        );
-//
-//        return $this->successResponse($status);
+    public function update(Request $request, int $gameId): JsonResponse
+    {
+        $status = GameStatus::where([
+            'game_id' => $gameId,
+            'user_id' => Auth::user()->uuid,
+        ])
+        ->first();
+
+        if (!$status instanceof GameStatus) {
+            $status = GameStatus::create([
+                'game_id' => $gameId,
+                'status' => $request->get('status')
+            ]);
+        }
+
+        if ($status->status === $request->get('status')) {
+            return $this->errorResponse('Status cant be the same', 400);
+        }
+
+        $status->status = $request->get('status');
+        $status->updateTimestamps();
+        $status->save();
+
+        $this->activityService->create(
+            Activity::ACTION_STATUS_UPDATED,
+            [
+                'game_name' => $this->gameService->fetchById($gameId)->name,
+                'status' => $status->status
+            ],
+            $gameId
+        );
+
+        return $this->successResponse($status);
     }
 }

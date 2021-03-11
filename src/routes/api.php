@@ -6,7 +6,7 @@ use App\Http\Controllers\V1\GameController;
 use App\Http\Controllers\V1\GameListController;
 use App\Http\Controllers\V1\ListItemController;
 use App\Http\Controllers\V1\LoginController;
-use App\Http\Controllers\V1\StatusController;
+use App\Http\Controllers\V1\GameStatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::get('games/search', [GameController::class, 'search']);
     Route::get('game/{id}', [GameController::class, 'show']);
 
-    Route::post('game/{gameId}/status',function(Request $request) { return 'debug';});
+    Route::post('game/{gameId}/status', [GameStatusController::class, 'update']);
 
     Route::post('lists/{list}/items', [ListItemController::class, 'create']);
     Route::post('lists/{list}/items/{item}', [ListItemController::class, 'destroy']);
