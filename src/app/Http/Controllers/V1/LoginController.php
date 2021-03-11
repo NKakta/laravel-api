@@ -17,7 +17,7 @@ class LoginController extends ApiController
         ]);
 
         if (!Auth::attempt($login)) {
-            $this->errorResponse('Auth failed', 401);
+            return $this->errorResponse('Auth failed', 401);
         }
 
         $accessToken = Auth::user()->createToken('authToken')->accessToken;
