@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StatusController extends ApiController
 {
-    public function update(Request $request)
+    public function update()
     {
-        return $request->toArray();
+        return 'ok';
     }
 }
