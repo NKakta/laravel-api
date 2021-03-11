@@ -20,7 +20,8 @@ class Game extends IgdbGame
         'storyline',
         'involved_companies',
         'collection',
-        'genres'
+        'genres',
+        'videos',
     ];
 
     public const RELATION_FIELDS = [
@@ -28,6 +29,7 @@ class Game extends IgdbGame
         'screenshots' => ['url'],
         'genres' => ['name'],
         'platforms' => ['abbreviation', 'name'],
+        'videos' => ['name', 'video_id'],
     ];
 
     public const IMAGE_SIZE_BIG = 't_cover_big_2x';

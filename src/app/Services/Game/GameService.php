@@ -25,6 +25,7 @@ class GameService
             ->find($id);
 
         $this->resizeImages($game);
+        $this->addUrlToVideos($game);
         $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
 
         return $game;
@@ -61,6 +62,18 @@ class GameService
         if ($game->screenshots) {
             foreach ($game->screenshots as $screenshot) {
                 $screenshot->url = str_replace('t_thumb', Game::IMAGE_SIZE_BIG, $screenshot->url);
+            }
+        }
+    }
+
+    private function addUrlToVideos($game) {
+        if (!$game) {
+            return;
+        }
+
+        if ($game->videos) {
+            foreach ($game->videos as $video) {
+                $video->url = 'https://www.youtube.com/watch?v=' . $video->video_id;
             }
         }
     }
