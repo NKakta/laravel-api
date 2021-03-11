@@ -6,6 +6,7 @@ namespace App\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
@@ -40,6 +41,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        Log::error('Exception received', [
+            'trace' => $exception->getTrace(),
+            'message' => $exception->getMessage(),
+            'line' => $exception->getLine()
+        ]);
         return ResponseHandler::response($exception);
     }
 
