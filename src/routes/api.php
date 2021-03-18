@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\V1\ActivityController;
+use App\Http\Controllers\V1\DealController;
 use App\Http\Controllers\V1\ReviewController;
 use App\Http\Controllers\V1\GameController;
 use App\Http\Controllers\V1\GameListController;
@@ -32,6 +33,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
 
     Route::post('lists/{list}/items', [ListItemController::class, 'create']);
     Route::post('lists/{list}/items/{item}', [ListItemController::class, 'destroy']);
+
+    Route::get('deal/search', [DealController::class, 'show']);
 
     Route::resource('lists', GameListController::class)->only([
         'index', 'store', 'show', 'update', 'destroy',
