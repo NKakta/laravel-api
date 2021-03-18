@@ -31,6 +31,26 @@ class GameService
         return $game;
     }
 
+    public function fetchPopular()
+    {
+        $list = Game::select(Game::PARSED_FIELDS)
+            ->with(Game::RELATION_FIELDS)
+            ->where('first_release_date', '>', now()->toString())
+            ->where('first_release_date', '<', (new \DateTime('+4 months'))->format('Y-m-d H:i:s'))
+            ->orderBy('rating', 'desc')
+            ->limit(12)
+            ->get();
+
+        foreach ($list as $game) {
+            $this->resizeImages($game);
+            $this->addUrlToVideos($game);
+            $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
+        }
+
+
+        return $list;
+    }
+
     /**
      * @return Collection|Game[]
      */

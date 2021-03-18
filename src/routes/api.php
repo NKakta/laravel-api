@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::get('games/search', [GameController::class, 'search']);
     Route::get('game/{id}', [GameController::class, 'show']);
+    Route::get('games/popular', [GameController::class, 'showPopular']);
 
     Route::post('game/{gameId}/status', [GameStatusController::class, 'update']);
 

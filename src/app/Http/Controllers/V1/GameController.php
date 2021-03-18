@@ -32,4 +32,11 @@ class GameController extends ApiController
 
         return $this->successResponse($game);
     }
+
+    public function showPopular()
+    {
+        $list = $this->gameService->fetchPopular();
+
+        return $this->successResponse($list);
+    }
 }
