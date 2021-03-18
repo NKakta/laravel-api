@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Contracts\UuidInterface;
-use Auth;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
-use Schema;
 
 class Model extends EloquentModel
 {

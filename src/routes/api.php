@@ -47,10 +47,13 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::resource('activities', ActivityController::class)->only([
         'index', 'show', 'destroy'
     ]);
+
+    Route::post('/user/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
 Route::group(['prefix' => '/user'], function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
+    Route::post('/register', [LoginController::class, 'register'])->name('register');
 });
 
 Route::fallback(function(){
