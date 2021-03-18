@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/html
 
 RUN chown laravel:laravel /var/www/html
 RUN chown -R www-data:www-data /var/www
+RUN chmod 755 /var/www
 
 WORKDIR /var/www/html
 
