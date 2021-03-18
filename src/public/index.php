@@ -48,7 +48,6 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-var_dump(fopen('php://input', 'r'));die;
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
