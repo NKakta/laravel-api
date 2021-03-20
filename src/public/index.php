@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 define('LARAVEL_START', microtime(true));
 
@@ -48,9 +49,9 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-echo(Request::capture());die;
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
+//Log::error('Ernis daro requesta', $request);
 
 $kernel->terminate($request, $response);
