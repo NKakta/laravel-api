@@ -52,6 +52,6 @@ $kernel = $app->make(Kernel::class);
 $response = tap($kernel->handle(
     $request = Request::capture()
 ))->send();
-Log::error('Ernis daro requesta', $request->headers->all());
+//Log::error('Ernis daro requesta', $request->headers->all());
 
 $kernel->terminate($request, $response);
