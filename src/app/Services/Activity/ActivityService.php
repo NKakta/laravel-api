@@ -5,6 +5,7 @@ namespace App\Services\Activity;
 
 use App\Models\Activity;
 use App\Models\Game;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityService
 {
@@ -16,6 +17,10 @@ class ActivityService
         if ($game) {
             $coverUrl = $game->getCoverUrl();
             $gameId = $game->id;
+        }
+
+        if (Auth::check()) {
+            $data['user_name'] = Auth::user()->name;
         }
 
         return Activity::create([
