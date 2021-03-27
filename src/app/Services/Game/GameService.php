@@ -64,7 +64,6 @@ class GameService
         foreach ($list as $game) {
             $this->resizeImages($game);
             $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
-
         }
 
         return $list;
