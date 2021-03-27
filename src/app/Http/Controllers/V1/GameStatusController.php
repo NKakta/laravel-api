@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\GameStatus;
 use App\Services\Activity\ActivityService;
 use App\Services\Game\GameService;
+use App\Services\GameStatus\GameStatusService;
 use Illuminate\Http\JsonResponse;
 use \Illuminate\Support\Facades\Auth;
 
@@ -24,10 +25,19 @@ class GameStatusController extends ApiController
      */
     private $gameService;
 
-    public function __construct(ActivityService $activityService, GameService $gameService)
-    {
+    /**
+     * @var GameStatusService
+     */
+    private $statusService;
+
+    public function __construct(
+        ActivityService $activityService,
+        GameService $gameService,
+        GameStatusService $statusService
+    ) {
         $this->activityService = $activityService;
         $this->gameService = $gameService;
+        $this->statusService = $statusService;
     }
 
     public function update(CreateGameStatusRequest $request, int $gameId): JsonResponse
@@ -43,10 +53,6 @@ class GameStatusController extends ApiController
                 'game_id' => $gameId,
                 'status' => $request->status
             ]);
-        }
-
-        if ($status->status === $request->status) {
-            return $this->errorResponse('Status cant be the same', 400);
         }
 
         $status->status = $request->status;
