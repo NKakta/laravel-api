@@ -26,9 +26,9 @@ class DealService
     {
         $result = [];
         foreach ($plains as $plain) {
-
             if (isset($prices[$plain['plain']])) {
-                $result[$plain['title']] = $prices[$plain['plain']];
+                $prices[$plain['plain']]['name'] = $plain['title'];
+                $result[] = $prices[$plain['plain']];
             }
         }
 
@@ -52,6 +52,10 @@ class DealService
         $plainsString = $this->getPlainsString($plains);
 
         $prices = $this->api->fetchPrices($plainsString);
+
+//        foreach ($prices as $key => $list) {
+//            $list
+//        }
 
         return $this->addTitlesToPrices($prices, $plains);
     }
