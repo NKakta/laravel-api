@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Model extends EloquentModel
 {
-    protected $hidden = ['id', 'user_id', 'pivot'];
+    protected $hidden = ['id', 'pivot'];
 
     static function boot()
     {
