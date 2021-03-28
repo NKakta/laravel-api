@@ -6,6 +6,7 @@ namespace App\Http\Controllers\V1;
 use App\Http\Requests\SearchGameRequest;
 use App\Services\Game\GameService;
 use App\Http\Controllers\ApiController;
+use App\Services\Review\ReviewService;
 
 class GameController extends ApiController
 {
@@ -14,9 +15,15 @@ class GameController extends ApiController
      */
     private $gameService;
 
-    public function __construct(GameService $gameService)
+    /**
+     * @var ReviewService
+     */
+    private $reviewService;
+
+    public function __construct(GameService $gameService, ReviewService $reviewService)
     {
         $this->gameService = $gameService;
+        $this->reviewService = $reviewService;
     }
 
     public function search(SearchGameRequest $request)
@@ -38,5 +45,12 @@ class GameController extends ApiController
         $list = $this->gameService->fetchPopular();
 
         return $this->successResponse($list);
+    }
+
+    public function getReviewInfo(int $id)
+    {
+        $info = $this->reviewService->getReviewsForGame($id);
+
+        return $this->successResponse($info, null, 200);
     }
 }

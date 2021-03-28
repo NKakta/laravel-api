@@ -9,20 +9,31 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewService
 {
-    public function getReviewsForGame(int $gameId)
+    public function getReviewsForGame(int $id)
     {
-        $status = Review::where([
-            'user_id' => Auth::user()->uuid,
-            'game_id' => $id
+        $positive = Review::where([
+            'game_id' => $id,
+            'positive' => true
         ])
-        ->first();
+        ->groupBy('positive')
+        ->count();
 
-        if (!$status instanceof GameStatus)
-        {
-            return GameStatus::STATUS_EMPTY;
-        }
+        $negative = Review::where([
+            'game_id' => $id,
+            'positive' => false
+        ])
+        ->groupBy('positive')
+        ->count();
 
-        return $status->status;
+        $reviews = Review::where(['game_id' => $id])
+        ->orderBy('created_at')
+        ->get();
+
+        return [
+            'positiveCount' => $positive,
+            'negativeCounte' => $negative,
+            'reviews' => $reviews
+        ];
     }
 
 

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\V1;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\CreateReviewRequest;
 use App\Models\Review;
-use Auth;
+use App\Services\Review\ReviewService;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends ApiController
 {
