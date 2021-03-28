@@ -10,7 +10,7 @@ class ActivityController extends ApiController
 {
     public function index()
     {
-        $userId = Auth::User()->uuid;
+        $userId = Auth::User()->id;
 
         $activities = Activity::where(['user_id' => $userId])
             ->orderBy('created_at')

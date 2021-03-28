@@ -17,7 +17,7 @@ class CreateGameStatusesTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->bigInteger('game_id');
-            $table->uuid('user_id');
+            $table->bigInteger('user_id');
             $table->string('status');
             $table->timestamps();
         });

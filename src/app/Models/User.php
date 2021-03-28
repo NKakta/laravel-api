@@ -61,4 +61,19 @@ class User extends Authenticatable implements UuidInterface
             }
         });
     }
+
+    public function activity()
+    {
+        return $this->hasMany(Activity::class, 'user_id', 'uuid');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'user_id', 'follower_id');
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id');
+    }
 }

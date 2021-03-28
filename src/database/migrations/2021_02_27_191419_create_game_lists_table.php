@@ -16,7 +16,7 @@ class CreateGameListsTable extends Migration
         Schema::create('game_lists', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index();
-            $table->uuid('user_id');
+            $table->bigInteger('user_id');
             $table->string('name');
             $table->text('description');
             $table->integer('count')->default(0);

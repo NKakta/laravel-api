@@ -16,7 +16,7 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index();
-            $table->uuid('user_id');
+            $table->bigInteger('user_id');
             $table->bigInteger('game_id')->nullable();
             $table->string('action');
             $table->string('cover_url')->nullable();

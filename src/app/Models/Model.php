@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class Model extends EloquentModel
 {
-    protected $hidden = ['id', 'pivot'];
+    protected $hidden = ['id', 'user_id', 'pivot'];
 
     static function boot()
     {
@@ -24,7 +24,7 @@ class Model extends EloquentModel
             if (Schema::hasColumn($model->getTable(), 'user_id') && is_null($model->user_id))
             {
                 if (Auth::user() instanceof User) {
-                    $model->user_id = Auth::user()->uuid;
+                    $model->user_id = Auth::user()->id;
                 }
             }
         });
@@ -36,7 +36,7 @@ class Model extends EloquentModel
         {
             return $this->where([
                 $field ?? $this->getRouteKeyName() => $value,
-                'user_id' => Auth::user()->uuid
+                'user_id' => Auth::user()->id
             ])
             ->first();
         }

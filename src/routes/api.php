@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\ActivityController;
 use App\Http\Controllers\V1\DealController;
+use App\Http\Controllers\V1\FollowerController;
 use App\Http\Controllers\V1\ReviewController;
 use App\Http\Controllers\V1\GameController;
 use App\Http\Controllers\V1\GameListController;
@@ -50,6 +51,13 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::resource('activities', ActivityController::class)->only([
         'index', 'show', 'destroy'
     ]);
+
+
+
+    Route::get('user/followers', [FollowerController::class, 'index']);
+    Route::post('user/follow/{userId}', [FollowerController::class, 'follow']);
+    Route::delete('user/follow/{userId}', [FollowerController::class, 'unfollow']);
+    Route::get('user/news-feed', [FollowerController::class, 'getNewsFeed']);
 
     Route::post('/user/logout', [LoginController::class, 'logout'])->name('logout');
 });
