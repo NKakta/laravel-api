@@ -41,11 +41,8 @@ class FollowerService
         return true;
     }
 
-    public function getNewsFeed()
+    public function getNewsFeed(User $user)
     {
-        /** @var User $user */
-        $user = Auth::user();
-
         $activities = Activity::leftJoin('follower_user', function($join) {
             $join->on('activities.user_id', '=', 'follower_user.user_id');
         })

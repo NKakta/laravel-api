@@ -9,6 +9,7 @@ use App\Http\Controllers\V1\GameListController;
 use App\Http\Controllers\V1\ListItemController;
 use App\Http\Controllers\V1\LoginController;
 use App\Http\Controllers\V1\GameStatusController;
+use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,6 +52,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::resource('activities', ActivityController::class)->only([
         'index', 'show', 'destroy'
     ]);
+    Route::get('user/activities/{userId}', [ActivityController::class, 'getUserActivity']);
 
 
 
@@ -58,6 +60,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::post('user/follow/{userId}', [FollowerController::class, 'follow']);
     Route::delete('user/follow/{userId}', [FollowerController::class, 'unfollow']);
     Route::get('user/news-feed', [FollowerController::class, 'getNewsFeed']);
+    Route::get('user/search', [UserController::class, 'search']);
 
     Route::post('/user/logout', [LoginController::class, 'logout'])->name('logout');
 });

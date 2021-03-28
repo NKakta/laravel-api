@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\ApiController;
+use App\Models\User;
 use App\Services\User\FollowerService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FollowerController extends ApiController
 {
@@ -42,7 +43,9 @@ class FollowerController extends ApiController
 
     public function getNewsFeed()
     {
-        $feed = $this->followerService->getNewsFeed();
+        /** @var User $user */
+        $user = Auth::user();
+        $feed = $this->followerService->getNewsFeed($user);
 
         return $this->successResponse($feed);
     }

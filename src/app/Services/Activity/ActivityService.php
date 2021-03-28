@@ -30,4 +30,11 @@ class ActivityService
             'data' => $data,
         ]);
     }
+
+    public function getActivities(int $userId)
+    {
+        return Activity::where(['user_id' => $userId])
+            ->orderBy('created_at')
+            ->get();
+    }
 }
