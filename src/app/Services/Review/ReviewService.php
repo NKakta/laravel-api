@@ -36,5 +36,14 @@ class ReviewService
         ];
     }
 
+    public function getReviewForGame(int $gameId)
+    {
+        return Review::where([
+            'game_id' => $gameId,
+            'user_id' => Auth::user()->id
+        ])
+        ->first();
+    }
+
 
 }

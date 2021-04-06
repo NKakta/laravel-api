@@ -4,6 +4,7 @@ namespace App\Services\Game;
 
 use App\Models\Game;
 use App\Services\GameStatus\GameStatusService;
+use App\Services\Review\ReviewService;
 use Illuminate\Support\Collection;
 
 class GameService
@@ -13,9 +14,15 @@ class GameService
      */
     private $gameStatusService;
 
-    public function __construct(GameStatusService $gameStatusService)
+    /**
+     * @var ReviewService
+     */
+    private $reviewService;
+
+    public function __construct(GameStatusService $gameStatusService, ReviewService $reviewService)
     {
         $this->gameStatusService = $gameStatusService;
+        $this->reviewService = $reviewService;
     }
 
     public function fetchById(int $id): Game
@@ -27,6 +34,7 @@ class GameService
         $this->resizeImages($game);
         $this->addUrlToVideos($game);
         $game->game_status = $this->gameStatusService->getStatusByGameId((int)$game->id);
+        $game->review = $this->reviewService->getReviewForGame((int)$game->id);
 
         return $game;
     }
