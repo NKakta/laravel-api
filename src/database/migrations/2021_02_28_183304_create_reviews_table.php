@@ -18,8 +18,8 @@ class CreateReviewsTable extends Migration
             $table->uuid('uuid');
             $table->bigInteger('user_id');
             $table->bigInteger('game_id');
-            $table->string('title');
-            $table->text('content');
+            $table->string('title')->nullable();
+            $table->text('content')->nullable();
             $table->boolean('positive');
             $table->timestamps();
         });

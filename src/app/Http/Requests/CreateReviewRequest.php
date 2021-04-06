@@ -10,8 +10,8 @@ class CreateReviewRequest extends FormRequest
     {
         return [
             'game_id' => ['required', 'integer'],
-            'title' => ['required', 'string'],
-            'content' => ['required', 'string'],
+            'title' => ['string', 'nullable'],
+            'content' => ['string', 'nullable'],
             'positive' => ['required', 'boolean'],
         ];
     }
