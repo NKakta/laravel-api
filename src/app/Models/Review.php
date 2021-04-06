@@ -10,7 +10,7 @@ class Review extends Model implements UuidInterface
     use HasFactory;
 
     protected $fillable = ['title', 'content', 'positive', 'game_id'];
-    
+
     protected $with = ['user'];
 
     public function user()

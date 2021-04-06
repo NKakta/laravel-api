@@ -23,9 +23,10 @@ class ReviewController extends ApiController
 
     public function store(CreateReviewRequest $request)
     {
-        $list = Review::create($request->validated());
+        $review = Review::create($request->validated());
+        $review->user = Auth::user();
 
-        return $this->successResponse($list);
+        return $this->successResponse($review);
     }
 
     public function show(Review $review)
