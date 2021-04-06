@@ -10,7 +10,7 @@ class GameStatusService
     public function getStatusByGameId(int $id)
     {
         $status = GameStatus::where([
-            'user_id' => Auth::user()->uuid,
+            'user_id' => Auth::user()->id,
             'game_id' => $id
         ])
         ->first();
