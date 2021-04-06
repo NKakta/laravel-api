@@ -7,8 +7,10 @@ use App\Contracts\UuidInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
+use function PHPUnit\Framework\throwException;
 
 class User extends Authenticatable implements UuidInterface
 {
@@ -47,6 +49,11 @@ class User extends Authenticatable implements UuidInterface
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['is_followed'];
+
+
+
+
     public function isAdmin()
     {
         return true;
@@ -77,4 +84,18 @@ class User extends Authenticatable implements UuidInterface
     {
         return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id');
     }
+
+
+    public function getIsFollowedAttribute()
+    {
+        $user = Auth::user();
+
+        if (!$user instanceof User) {
+            return false;
+        }
+
+        return $this->followings()->where('user_id', '=', $user->id)->exists();
+    }
+
+
 }
