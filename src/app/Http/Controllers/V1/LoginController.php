@@ -31,7 +31,7 @@ class LoginController extends ApiController
         ]);
     }
 
-    public function register (Request $request)
+    public function register(Request $request)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -54,8 +54,12 @@ class LoginController extends ApiController
         ]);
     }
 
-    public function logout (Request $request)
+    public function logout(Request $request)
     {
+        if (!Auth::check()) {
+            return $this->errorResponse('Unauthenticated.', 400);
+        }
+
         $token = $request->user()->token();
         $token->revoke();
         return $this->successResponse([], 'You have been successfully logged out!');
