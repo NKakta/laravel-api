@@ -10,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
-use function PHPUnit\Framework\throwException;
 
 class User extends Authenticatable implements UuidInterface
 {
@@ -68,11 +67,6 @@ class User extends Authenticatable implements UuidInterface
                 $model->uuid = Str::orderedUuid()->toString();
             }
         });
-    }
-
-    public function activity()
-    {
-        return $this->hasMany(Activity::class, 'user_id', 'uuid');
     }
 
     public function followers()

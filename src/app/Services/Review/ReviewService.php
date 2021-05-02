@@ -31,7 +31,7 @@ class ReviewService
 
         return [
             'positiveCount' => $positive,
-            'negativeCounte' => $negative,
+            'negativeCount' => $negative,
             'reviews' => $reviews
         ];
     }

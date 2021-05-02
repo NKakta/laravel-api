@@ -18,18 +18,21 @@ class GameService
      * @var ReviewService
      */
     private $reviewService;
+    /**
+     * @var GameClient
+     */
+    private $gameClient;
 
-    public function __construct(GameStatusService $gameStatusService, ReviewService $reviewService)
+    public function __construct(GameStatusService $gameStatusService, ReviewService $reviewService, GameClient $gameClient)
     {
         $this->gameStatusService = $gameStatusService;
         $this->reviewService = $reviewService;
+        $this->gameClient = $gameClient;
     }
 
     public function fetchById(int $id): Game
     {
-        $game = Game::select(Game::PARSED_FIELDS)
-            ->with(Game::RELATION_FIELDS)
-            ->find($id);
+        $game = $this->gameClient->fetchById($id);
 
         $this->resizeImages($game);
         $this->addUrlToVideos($game);
@@ -41,13 +44,7 @@ class GameService
 
     public function fetchPopular()
     {
-        $list = Game::select(Game::PARSED_FIELDS)
-            ->with(Game::RELATION_FIELDS)
-            ->where('first_release_date', '>', now()->toString())
-            ->where('first_release_date', '<', (new \DateTime('+4 months'))->format('Y-m-d H:i:s'))
-            ->orderBy('rating', 'desc')
-            ->limit(12)
-            ->get();
+        $list = $this->gameClient->fetchPopular();
 
         foreach ($list as $game) {
             $this->resizeImages($game);
@@ -64,10 +61,7 @@ class GameService
      */
     public function fetchByName(string $name): Collection
     {
-        $list = Game::select(Game::PARSED_FIELDS)
-            ->with(Game::RELATION_FIELDS)
-            ->search($name)
-            ->get();
+        $list = $this->gameClient->fetchByName($name);
 
         foreach ($list as $game) {
             $this->resizeImages($game);

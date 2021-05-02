@@ -44,7 +44,7 @@ class GameStatusController extends ApiController
     {
         $status = GameStatus::where([
             'game_id' => $gameId,
-            'user_id' => Auth::user()->uuid,
+            'user_id' => Auth::user()->id,
         ])
         ->first();
 

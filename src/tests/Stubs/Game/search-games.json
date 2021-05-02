@@ -1,0 +1,71 @@
+[
+    {
+        "category": 0,
+        "cover": {
+            "id": 101522,
+            "url": "//images.igdb.com/igdb/image/upload/t_cover_big_2x/co26c2.jpg"
+        },
+        "first_release_date": "2019-07-24T00:00:00.000000Z",
+        "game_status": "empty",
+        "genres": [
+            {
+                "id": 14,
+                "name": "Sport"
+            }
+        ],
+        "id": 116797,
+        "involved_companies": [
+            78960
+        ],
+        "name": "Olympic Games Tokyo 2020: The Official Video Game",
+        "platforms": [
+            {
+                "abbreviation": "PC",
+                "id": 6,
+                "name": "PC (Microsoft Windows)"
+            }
+        ],
+        "screenshots": [
+            {
+                "id": 296714,
+                "url": "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc6cy2.jpg"
+            }
+        ],
+        "summary": "A fun-filled sports action game where you can create your own avatar and compete in Olympic Games events with people around the world.",
+        "videos": [
+            {
+                "id": 26762,
+                "name": "Trailer",
+                "video_id": "FDRV86UdgnM"
+            }
+        ]
+    },
+    {
+        "category": 0,
+        "first_release_date": "2014-01-13T00:00:00.000000Z",
+        "game_engines": [
+            235
+        ],
+        "game_status": "empty",
+        "id": 128607,
+        "involved_companies": [
+            90713,
+            90714
+        ],
+        "name": "Game Jam Jam Game",
+        "platforms": [
+            {
+                "abbreviation": "browser",
+                "id": 82,
+                "name": "Web browser"
+            }
+        ],
+        "screenshots": [
+            {
+                "id": 352716,
+                "url": "//images.igdb.com/igdb/image/upload/t_cover_big_2x/sc7k5o.jpg"
+            }
+        ],
+        "summary": "A jam game gamifying jam jammed out for a game jam."
+    }
+]

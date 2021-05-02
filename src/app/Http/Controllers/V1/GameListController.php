@@ -66,11 +66,4 @@ class GameListController extends ApiController
 
         return $this->successResponse([], null, 204);
     }
-
-    public function addItem(GameList $list, CreateListItemRequest $request)
-    {
-        ListItem::create($request->validated());
-
-        return $this->successResponse([], null, 204);
-    }
 }

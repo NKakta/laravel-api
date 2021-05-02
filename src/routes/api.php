@@ -28,18 +28,18 @@ use Illuminate\Support\Facades\Route;
 //});'middleware' => 'auth:api'
 
 Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
-    Route::get('game/{id}', [GameController::class, 'show']);
-    Route::get('game/{id}/reviews', [GameController::class, 'getReviewInfo']);
+    Route::get('game/{id}', [GameController::class, 'show'])->name('games.show');
+    Route::get('game/{id}/reviews', [GameController::class, 'getReviewInfo'])->name('games.review.info');
 
-    Route::get('games/search', [GameController::class, 'search']);
-    Route::get('games/popular', [GameController::class, 'showPopular']);
+    Route::get('games/search', [GameController::class, 'search'])->name('games.search');
+    Route::get('games/popular', [GameController::class, 'showPopular'])->name('games.popular');
 
-    Route::post('game/{gameId}/status', [GameStatusController::class, 'update']);
+    Route::post('game/{gameId}/status', [GameStatusController::class, 'update'])->name('status.update');
 
     Route::post('lists/{list}/items', [ListItemController::class, 'create']);
     Route::post('lists/{list}/items/{item}', [ListItemController::class, 'destroy']);
 
-    Route::get('deal/search', [DealController::class, 'show']);
+    Route::get('deal/search', [DealController::class, 'show'])->name('deals.show');
 
     Route::resource('lists', GameListController::class)->only([
         'index', 'store', 'show', 'update', 'destroy',
@@ -54,13 +54,11 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     ]);
     Route::get('user/activities/{userId}', [ActivityController::class, 'getUserActivity']);
 
-
-
-    Route::get('user/followers', [FollowerController::class, 'index']);
-    Route::post('user/follow/{userId}', [FollowerController::class, 'follow']);
-    Route::delete('user/follow/{userId}', [FollowerController::class, 'unfollow']);
-    Route::get('user/news-feed', [FollowerController::class, 'getNewsFeed']);
-    Route::get('user/search', [UserController::class, 'search']);
+    Route::get('user/followers', [FollowerController::class, 'index'])->name('followers.index');
+    Route::post('user/follow/{userId}', [FollowerController::class, 'follow'])->name('followers.follow');
+    Route::delete('user/follow/{userId}', [FollowerController::class, 'unfollow'])->name('followers.unfollow');
+    Route::get('user/news-feed', [FollowerController::class, 'getNewsFeed'])->name('user.news-feed');
+    Route::get('user/search', [UserController::class, 'search'])->name('user.search');
 
     Route::post('/user/logout', [LoginController::class, 'logout'])->name('logout');
 });

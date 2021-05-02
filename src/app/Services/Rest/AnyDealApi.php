@@ -54,4 +54,9 @@ class AnyDealApi
 
         return json_decode($response->getBody()->getContents(), true)['data'];
     }
+
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
 }

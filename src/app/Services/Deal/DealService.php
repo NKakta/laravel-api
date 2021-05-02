@@ -53,10 +53,6 @@ class DealService
 
         $prices = $this->api->fetchPrices($plainsString);
 
-//        foreach ($prices as $key => $list) {
-//            $list
-//        }
-
         return $this->addTitlesToPrices($prices, $plains);
     }
 }

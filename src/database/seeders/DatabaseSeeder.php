@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Database\Seeders;
 
@@ -13,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(UserSeeder::class);
+        $this->call(ListSeeder::class);
+        $this->call(ReviewSeeder::class);
+        $this->call(FollowerSeeder::class);
+        $this->call(ActivitySeeder::class);
+        $this->call(ListItemSeeder::class);
+        $this->call(GameStatusSeeder::class);
     }
 }

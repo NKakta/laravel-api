@@ -12,7 +12,7 @@ class ReviewController extends ApiController
 {
     public function index()
     {
-        $userId = Auth::User()->uuid;
+        $userId = Auth::User()->id;
 
         $list = Review::where(['user_id' => $userId])
             ->orderBy('created_at')
