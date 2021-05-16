@@ -74,7 +74,7 @@ class GameService
     /**
      * @return Collection|Game[]
      */
-    public function fetchByStatus(string $status): Collection
+    public function fetchByStatus(string $status): array
     {
         $statuses = $this->gameStatusService->getStatusesForUser($status);
         $games = [];
