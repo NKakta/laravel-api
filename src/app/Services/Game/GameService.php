@@ -82,13 +82,12 @@ class GameService
 
         foreach ($statuses as $status)
         {
-            dd(count($statuses));
             $statusMap[$status->game_id] = $status->status;
             $gameIds[] = $status->game_id;
         }
 
         $games = $this->gameClient->fetchInIds($gameIds);
-
+        dd(count($statuses), count($games));
         foreach ($games as $game) {
             $this->resizeImages($game);
             $this->addUrlToVideos($game);
