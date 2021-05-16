@@ -87,7 +87,7 @@ class GameService
         }
 
         $games = $this->gameClient->fetchInIds($gameIds);
-        dd($gameIds);
+
         foreach ($games as $game) {
             $this->resizeImages($game);
             $this->addUrlToVideos($game);
