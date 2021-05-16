@@ -58,7 +58,7 @@ class FollowerService
 //            ->where('follower_user.user_id', '=', $user->id)
             ->orderBy('activities.created_at')
             ->get();
-        dd($activities);
+        dd(json_encode($activities));
 
         return $activities;
     }
