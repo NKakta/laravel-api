@@ -82,6 +82,7 @@ class GameService
 
         foreach ($statuses as $status)
         {
+            dd(count($statuses));
             $statusMap[$status->game_id] = $status->status;
             $gameIds[] = $status->game_id;
         }
