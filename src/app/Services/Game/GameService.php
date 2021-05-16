@@ -77,22 +77,25 @@ class GameService
     public function fetchByStatus(string $status): array
     {
         $statuses = $this->gameStatusService->getStatusesForUser($status);
-        $games = [];
+        $gameIds = [];
 
         foreach ($statuses as $status)
         {
-            $game = $this->gameClient->fetchById($status->game_id);
-
-            if ($game) {
-                $this->resizeImages($game);
-                $this->addUrlToVideos($game);
-                $game->game_status = $status->status;
-
-                $games[] = $game;
-            }
+            $gameIds[] = $status->game_id;
         }
 
+        $games = Game::whereIn('id', $gameIds)->get();
 
+        foreach ($games as $game) {
+            $this->resizeImages($game);
+            $this->addUrlToVideos($game);
+
+            foreach ($statuses as $status) {
+                if ($status->game_id == $game->id) {
+                    $game->game_status = $status->status;
+                }
+            }
+        }
 
         return $games;
     }
