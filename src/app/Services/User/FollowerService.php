@@ -60,6 +60,10 @@ class FollowerService
             ->orderBy('activities.created_at')
             ->get();
 
+        foreach ($activities as $activity) {
+            $activity->data = json_decode($activity->data);
+        }
+
         return $activities;
     }
 
