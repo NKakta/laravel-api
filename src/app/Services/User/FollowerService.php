@@ -45,7 +45,7 @@ class FollowerService
     public function getNewsFeed(User $user)
     {
 //        $activities = Activity::rightJoin('follower_user', function($join) {
-//            $join->on('activities.user_id', '=', 'follower_user.follower_id');
+//            $join->on('activities.user_id', '=', 'follower_user.user_id');
 //        })
 //            ->select([
 //                'uuid',
@@ -60,7 +60,7 @@ class FollowerService
 //            ->orderBy('activities.created_at')
 //            ->get();
 
-        $activities = FollowerUser::leftJoin('activities', function($join) {
+        $activities = FollowerUser::join('activities', function($join) {
             $join->on('activities.user_id', '=', 'follower_user.follower_id');
         })
             ->select([
