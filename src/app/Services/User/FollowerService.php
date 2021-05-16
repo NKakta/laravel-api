@@ -56,6 +56,7 @@ class FollowerService
 //                'activities.updated_at'
 //            ])
 //            ->where('follower_user.user_id', '=', $user->id)
+            ->groupBy('activities.uuid')
             ->orderBy('activities.created_at')
             ->get();
         dd(json_encode($activities));
