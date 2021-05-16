@@ -31,9 +31,9 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
     Route::get('game/{id}', [GameController::class, 'show'])->name('games.show');
     Route::get('game/{id}/reviews', [GameController::class, 'getReviewInfo'])->name('games.review.info');
 
+    Route::get('games/{status}', [GameController::class, 'getGamesByStatus'])->name('games.status');
     Route::get('games/search', [GameController::class, 'search'])->name('games.search');
     Route::get('games/popular', [GameController::class, 'showPopular'])->name('games.popular');
-    Route::get('games/{status}', [GameController::class, 'getGamesByStatus'])->name('games.status');
 
     Route::post('game/{gameId}/status', [GameStatusController::class, 'update'])->name('status.update');
 
