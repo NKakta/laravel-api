@@ -43,7 +43,7 @@ class FollowerService
 
     public function getNewsFeed(User $user)
     {
-        $activities = Activity::leftJoin('follower_user', function($join) {
+        $activities = Activity::innerJoin('follower_user', function($join) {
             $join->on('activities.user_id', '=', 'follower_user.user_id');
         })
             ->select([
@@ -56,7 +56,6 @@ class FollowerService
                 'activities.updated_at'
             ])
             ->where('follower_user.user_id', '=', $user->id)
-            ->groupBy('activities.uuid')
             ->orderBy('activities.created_at')
             ->get();
 
