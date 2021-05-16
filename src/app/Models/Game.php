@@ -36,6 +36,10 @@ class Game extends IgdbGame
 
     public function getCoverUrl()
     {
+        if (!isset($this->cover) || !(isset($this->cover->url))) {
+            return null;
+        }
+
         if ($this->cover->url) {
             return $this->cover->url = str_replace('t_thumb', Game::IMAGE_SIZE_BIG, $this->cover->url);
         }
