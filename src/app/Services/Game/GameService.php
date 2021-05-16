@@ -84,7 +84,7 @@ class GameService
             $game = $this->gameClient->fetchById($status->game_id);
             $this->resizeImages($game);
             $this->addUrlToVideos($game);
-            $game->status = $status->status;
+            $game->game_status = $status->status;
 
             $games[] = $game;
         }
