@@ -48,7 +48,7 @@ class FollowerService
 //            $join->on('activities.user_id', '=', 'follower_user.user_id');
 //        })
 //            ->select([
-//                'uuid',
+//                'activities.uuid as uuid',
 //                'game_id',
 //                'action',
 //                'data',
@@ -64,7 +64,7 @@ class FollowerService
             $join->on('activities.user_id', '=', 'follower_user.follower_id');
         })
             ->select([
-                'uuid',
+                'activities.uuid as uuid',
                 'game_id',
                 'action',
                 'data',
