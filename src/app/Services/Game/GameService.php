@@ -78,9 +78,11 @@ class GameService
     {
         $statuses = $this->gameStatusService->getStatusesForUser($status);
         $gameIds = [];
+        $statusMap = [];
 
         foreach ($statuses as $status)
         {
+            $statusMap[$status->game_id] = $status->status;
             $gameIds[] = $status->game_id;
         }
 
@@ -90,10 +92,8 @@ class GameService
             $this->resizeImages($game);
             $this->addUrlToVideos($game);
 
-            foreach ($statuses as $status) {
-                if ($status->game_id == $game->id) {
-                    $game->game_status = $status->status;
-                }
+            if (isset($statusMap[$game->id])) {
+                $game->game_status = $statusMap[$game->id];
             }
         }
 
