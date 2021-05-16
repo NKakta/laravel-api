@@ -76,14 +76,17 @@ class GameService
      */
     public function fetchByStatus(string $status): Collection
     {
-        $statuses = $this->gameStatusService->getStatusesForUser();
+        $statuses = $this->gameStatusService->getStatusesForUser($status);
 
         foreach ($statuses as $status)
         {
-            dd($status);
+            $game = $this->gameClient->fetchById($status->game_id);
+            $this->resizeImages($game);
+            $this->addUrlToVideos($game);
+            $status->game = $game;
         }
-        return 'aa';
-//        $list = $this->gameClient->fetchByName($status);
+
+        return $statuses;
     }
 
     private function resizeImages($game)

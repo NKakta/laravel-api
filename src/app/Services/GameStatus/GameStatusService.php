@@ -23,10 +23,11 @@ class GameStatusService
         return $status->status;
     }
 
-    public function getStatusesForUser()
+    public function getStatusesForUser(string $status)
     {
         $status = GameStatus::where([
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
+            'status'  => $status
         ])
         ->get();
 
