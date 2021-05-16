@@ -43,7 +43,7 @@ class FollowerService
 
     public function getNewsFeed(User $user)
     {
-        $activities = Activity::join('follower_user', function($join) {
+        $activities = Activity::leftJoin('follower_user', function($join) {
             $join->on('activities.user_id', '=', 'follower_user.user_id');
         })
 //            ->select([
