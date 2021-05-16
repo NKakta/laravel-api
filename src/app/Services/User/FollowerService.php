@@ -46,18 +46,19 @@ class FollowerService
         $activities = Activity::join('follower_user', function($join) {
             $join->on('activities.user_id', '=', 'follower_user.user_id');
         })
-            ->select([
-                'uuid',
-                'game_id',
-                'action',
-                'data',
-                'cover_url',
-                'activities.created_at',
-                'activities.updated_at'
-            ])
-            ->where('follower_user.user_id', '=', $user->id)
+//            ->select([
+//                'uuid',
+//                'game_id',
+//                'action',
+//                'data',
+//                'cover_url',
+//                'activities.created_at',
+//                'activities.updated_at'
+//            ])
+//            ->where('follower_user.user_id', '=', $user->id)
             ->orderBy('activities.created_at')
             ->get();
+        dd($activities);
 
         return $activities;
     }
