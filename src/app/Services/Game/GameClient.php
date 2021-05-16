@@ -32,4 +32,12 @@ class GameClient
             ->search($name)
             ->get();
     }
+
+    public function fetchInIds(array $ids)
+    {
+        return Game::select(Game::PARSED_FIELDS)
+            ->with(Game::RELATION_FIELDS)
+            ->whereIn('id', $ids)
+            ->get();
+    }
 }
