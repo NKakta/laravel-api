@@ -82,11 +82,14 @@ class GameService
         foreach ($statuses as $status)
         {
             $game = $this->gameClient->fetchById($status->game_id);
-            $this->resizeImages($game);
-            $this->addUrlToVideos($game);
-            $game->game_status = $status->status;
 
-            $games[] = $game;
+            if ($game) {
+                $this->resizeImages($game);
+                $this->addUrlToVideos($game);
+                $game->game_status = $status->status;
+
+                $games[] = $game;
+            }
         }
 
 
