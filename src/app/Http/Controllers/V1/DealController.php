@@ -19,6 +19,29 @@ class DealController extends ApiController
         $this->dealService = $dealService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="api/v1/deal/search",
+     *     description="Search deals for games",
+     *     summary="Fetches games from IsThereAnyDealApi",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Deals"},
+     *     @OA\Parameter(name="name", in="query", required=True),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function show(Request $request)
     {
         $name = $request->query('name');

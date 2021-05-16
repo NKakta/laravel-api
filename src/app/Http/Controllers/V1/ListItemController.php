@@ -23,6 +23,28 @@ class ListItemController extends ApiController
         $this->gameService = $gameService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="api/v1/lists/{list}/items",
+     *     description="Create list item",
+     *     summary="Create list item",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"List Items"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function create(CreateListItemRequest $request, GameList $list)
     {
         $item = ListItem::where([

@@ -22,6 +22,28 @@ class UserController extends ApiController
         $this->userService = $userService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="api/v1/user/search",
+     *     description="Search for users",
+     *     summary="Search for users",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Users"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function search(SearchUserRequest $request)
     {
         $users = $this->userService->searchByName($request->name);

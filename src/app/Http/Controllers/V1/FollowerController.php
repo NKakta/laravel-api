@@ -20,6 +20,28 @@ class FollowerController extends ApiController
         $this->followerService = $followerService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="api/v1/user/followers",
+     *     description="Get followers",
+     *     summary="Get followers",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Followers"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function index()
     {
         $followers = $this->followerService->getFollowersForUser();
@@ -27,6 +49,28 @@ class FollowerController extends ApiController
         return $this->successResponse($followers);
     }
 
+    /**
+     * @OA\Post(
+     *     path="api/v1/user/follow/{userId}",
+     *     description="Follow",
+     *     summary="Follow",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Followers"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function follow(string $userId)
     {
         $this->followerService->follow($userId);
@@ -34,6 +78,28 @@ class FollowerController extends ApiController
         return $this->successResponse();
     }
 
+    /**
+     * @OA\Delete(
+     *     path="api/v1/user/follow/{userId}",
+     *     description="Unfollow",
+     *     summary="Unfollow",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Followers"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function unfollow(string $userId)
     {
         $this->followerService->unfollow($userId);
@@ -41,6 +107,28 @@ class FollowerController extends ApiController
         return $this->successResponse();
     }
 
+    /**
+     * @OA\Get(
+     *     path="api/v1/user/news-feed",
+     *     description="Get news feed",
+     *     summary="Get news feed",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Followers"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function getNewsFeed()
     {
         /** @var User $user */

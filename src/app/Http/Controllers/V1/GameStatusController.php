@@ -40,6 +40,28 @@ class GameStatusController extends ApiController
         $this->statusService = $statusService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="api/v1/game/{gameId}/status",
+     *     description="Update game status",
+     *     summary="Update game status",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Game Status"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function update(CreateGameStatusRequest $request, int $gameId): JsonResponse
     {
         $status = GameStatus::where([

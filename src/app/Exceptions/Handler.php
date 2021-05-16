@@ -41,6 +41,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        dd($exception->getMessage(), $exception->getFile(), $exception->getLine());
         Log::error('Exception received', [
             'message' => $exception->getMessage(),
             'line' => $exception->getLine(),

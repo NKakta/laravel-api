@@ -12,6 +12,28 @@ use Illuminate\Support\Str;
 
 class LoginController extends ApiController
 {
+    /**
+     * @OA\Post(
+     *     path="api/user/login",
+     *     description="Login",
+     *     summary="Login",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Users"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         $login = $request->validate([
@@ -31,6 +53,28 @@ class LoginController extends ApiController
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="api/user/register",
+     *     description="Register",
+     *     summary="Register",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Users"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -54,6 +98,28 @@ class LoginController extends ApiController
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *     path="api/v1/user/logout",
+     *     description="Logout",
+     *     summary="Logout",
+     *     security={{"BearerAuth": {}}},
+     *     tags={"Users"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful response",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="status", type="int", example="200"),
+     *             @OA\Property(property="success", type="bool", example="true"),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="object",
+     *                 example={}
+     *             )
+     *         ),
+     *     )
+     * )
+     */
     public function logout(Request $request)
     {
         if (!Auth::check()) {
