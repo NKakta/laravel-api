@@ -84,7 +84,7 @@ class GameService
             $gameIds[] = $status->game_id;
         }
 
-        $games = Game::whereIn('id', $gameIds)->get();
+        $games = $this->gameClient->fetchInIds($gameIds);
 
         foreach ($games as $game) {
             $this->resizeImages($game);
