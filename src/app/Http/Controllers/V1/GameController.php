@@ -147,7 +147,7 @@ class GameController extends ApiController
 
     public function getGamesByStatus(string $status)
     {
-        $games = $this->gameService->fetchByName($status);
+        $games = $this->gameService->fetchByStatus($status);
 
         return $this->successResponse($games);
     }
