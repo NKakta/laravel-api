@@ -71,6 +71,21 @@ class GameService
         return $list;
     }
 
+    /**
+     * @return Collection|Game[]
+     */
+    public function fetchByStatus(string $status): Collection
+    {
+        $statuses = $this->gameStatusService->getStatusesForUser();
+
+        foreach ($statuses as $status)
+        {
+            dd($status);
+        }
+        return 'aa';
+//        $list = $this->gameClient->fetchByName($status);
+    }
+
     private function resizeImages($game)
     {
         if (!$game) {

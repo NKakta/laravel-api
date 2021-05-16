@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['auth:api']], function () {
 
     Route::get('games/search', [GameController::class, 'search'])->name('games.search');
     Route::get('games/popular', [GameController::class, 'showPopular'])->name('games.popular');
+    Route::get('games/{status}', [GameController::class, 'getGamesByStatus'])->name('games.status');
 
     Route::post('game/{gameId}/status', [GameStatusController::class, 'update'])->name('status.update');
 
