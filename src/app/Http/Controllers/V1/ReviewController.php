@@ -4,12 +4,35 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\CreateReviewRequest;
+use App\Models\Activity;
 use App\Models\Review;
+use App\Services\Activity\ActivityService;
+use App\Services\Game\GameService;
 use App\Services\Review\ReviewService;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends ApiController
 {
+    /**
+     * @var ActivityService
+     */
+    private $activityService;
+
+    /**
+     * @var GameService
+     */
+    private $gameService;
+
+    /**
+     * ReviewController constructor.
+     */
+    public function __construct(
+        ActivityService $activityService,
+        GameService $gameService
+    ) {
+        $this->activityService = $activityService;
+        $this->gameService = $gameService;
+    }
 
     /**
      * @OA\Get(
@@ -70,6 +93,17 @@ class ReviewController extends ApiController
     {
         $review = Review::create($request->validated());
         $review->user = Auth::user();
+
+        $game = $this->gameService->fetchById($request->game_id);
+
+        $this->activityService->create(
+            Activity::ACTION_REVIEW_CREATED,
+            [
+                'game_name' => $game->title,
+                'positive' => $review->positive
+            ],
+            $game
+        );
 
         return $this->successResponse($review);
     }
