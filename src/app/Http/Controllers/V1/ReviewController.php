@@ -99,7 +99,7 @@ class ReviewController extends ApiController
         $this->activityService->create(
             Activity::ACTION_REVIEW_CREATED,
             [
-                'game_name' => $game->title,
+                'game_name' => $game->name,
                 'positive' => $review->positive
             ],
             $game
